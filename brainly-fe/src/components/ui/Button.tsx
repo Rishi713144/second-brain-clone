@@ -1,9 +1,9 @@
-import { ReactElement } from "react";
+import { ReactElement, ComponentType } from "react";
 
 interface ButtonInterface {
     title: string;
     size: "lg" | "sm" | "md";
-    startIcon?: ReactElement;
+    startIcon?: ComponentType<{ size?: "sm" | "md" | "lg" }>;
     endIcon?: ReactElement;
     variant: "primary" | "secondary";
 }
@@ -21,11 +21,11 @@ const variantStyles = {
 }
 
 export function Button(props: ButtonInterface) {
-    const Comp = props.startIcon;
+    const Icon = props.startIcon;
     return <button className={sizeStyles[props.size] + " " + variantStyles[props.variant]}>
         <div className="flex items-center">
             <span className="text-xs">
-                <Comp size={props.size} />
+                {Icon && <Icon size={props.size} />}
             </span>
             <div className="pl-2 pr-2">
                 {props.title}
